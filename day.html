@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day Details</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;700&family=Shadows+Into+Light&display=swap');
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #000000; /* Black background */
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 36px;
+            color: #ffffff; /* White text */
+        }
+
+        h2 {
+            color: #ffffff; /* White text */
+            
+        }
+        .container {
+            width: 350px;
+            background: #111; /* Dark gray container */
+            padding: 20px;
+            border: 1px solid #ffffff;
+            text-align: center;
+        }
+
+        .content {
+            font-size: 18px;
+            color: #ffffff; /* White text */
+            margin-top: 10px;
+            text-align: justify; /* Justify the text */
+
+        }
+
+        .back-btn {
+            background: #ffffff; /* White button */
+            border: none;
+            padding: 10px 15px;
+            color: #000000; /* Black text */
+            border-radius: 10px;
+            cursor: pointer;
+            transition: 0.3s;
+            margin-top: 20px;
+        }
+
+        .back-btn:hover {
+            background: #bbbbbb; /* Lighter gray on hover */
+            color: #000000;
+        }
+        
+
+    </style>
+    <script>
+        function getQueryParams() {
+            const params = new URLSearchParams(window.location.search);
+            return { month: params.get("month"), day: params.get("day") };
+        }
+
+        function displayDayContent() {
+            const { month, day } = getQueryParams();
+            const contentDiv = document.getElementById("day-content");
+
+            if (!month || !day) {
+                contentDiv.innerHTML = "Invalid date! Please go back to the calendar.";
+                return;
+            }
+
+            // Customize each day's content 🩷
+            const dateContents = {
+            "January 1": "🎉 Hi baby ko, I'm really happy na we've come this far. I love youuuu, sorry sa mga pangkukupal ko. I love you so muchhhh. Mahal kita palagi. First thing I love about you is how you handle me, you're so sweet and caring (might have misunderstood you minsan, that's my bad po). I hope we will be having a good life pooo. ✨",
+            
+            "January 2": "😡 I am writing this habang inis ako sayo! I'm trying my best para di mainis ng sobra, thank you sa pasensya mo mahal. I love youuuuu, I appreciate your patience sakin po mahal. Wag ka agad magalit ha, lambingin mo lang me because I'm your Disney princess ❤️❤️❤️. Just so you know, I love youuuuu kahit galit ako. 💕",
+            
+            "January 3": "💖 Mahal kooo, ang daming nangyari today, both negative and mas madami yung positive things. Thank you sa lahat, promise. I wanna be better than myself, nakakainis di ko ma-control yung mood ko (alam mo namang dahil sa menstruation ko yon). Thank you sa lahat ng ginagawa mo, na-aappreciate kitaaa. Hindi kita pang character development lang, pang forever na kita! 😘✨",
+            
+            "January 4": "🥰 Bebiii, thank you ginagawa mo yung best mo para samahan ako sa mga gusto ko. Wait mo me magkaroon, ibabalik ko sayo lahat ng pagsspoil mo sakin. Ang bilis ng oras, parang kanina lang kasama kita. I miss youuuu! Sorry minsan na mi-misunderstand ko paglalambing mo sakin. Mag-iingat ka palagi sa trabaho mo. Sobrang love kitaaa! 💖 Happy monthsary babyq! 🎉",
+            
+            "January 5": "💌 Sorry mahal ko, nakakasakit na ako. Di ko intention po yun mahal, I'm so sorry, hindi na po mauulit. Super naiinis ako sa sarili ko. Sorry sa lahat, gagawin ko lahat para mabago yung mga ganon. Wag ka magsawa pls. Sana mag-stay tayong dalawa sa isa't isa kahit minsan nag-aaway tayo. Mahal na mahal kitaaa. 🥺",
+            
+            "January 6": "✨ Already in the paper ✨",
+            
+            "January 7": "💖 Mahal koooo, thanks po sa hatid as always hihi. I've had a great day na naman! I miss youuuu! AaAaA bango mo palagii! I love youuuuu! I want hug! Miss kita everydayyy! 🤗💕",
+            
+            "January 8": "😞 Hindi kita nakita today, sad me. I miss you baby ko. Magkikita us bukas hihi. I love youuuuu mahal kita palagiii! Mwaaa! 😘",
+            
+            "January 9": "😊 I love youuuuu bebeee! We had a normal day naman, walang away hihi. Thank you sa pagsundo palagiii, I appreciate u! Bleh! Sayang walang hard F hihi, next time nalang! 😜 I love youuuuu! 💕",
+            
+            "January 10": "💖 Mahaall, thank you sa pagsama, kahit alam kong wala ka talagang balak mag-apply haha. I love youuuuu! Nag-enjoy me today. Let's rest naaa. Tumatae ka habang nagsusulat me sa diary ko hihi. I love youuuuu! 😂💕",
+            
+            "January 11": "😴 I love sleeping with you mahal kooo. Super pogi mo palagi kahit natutulog ka hihi. Thank you sa lahattt! I love youuuuu! Behave lang palagiii, oki? 🥰",
+            
+            "January 12": "🤔 Bebe kooo, nothing new todayyy, I'm happy naman po. I miss you mahal! 😞 Nag-overthink aq konti, sana malasij kau ng kabit mo! Bleh! 😜 I love youuuuu! I want kiss mahal! 😘",
+            
+            "January 13": "😶 Mahalll, chill lang palagi. Walang sigawan sana yawq na non. I don't like this day pero okay lang din naman. I love youuuuu. I can't sleep. 🥺",
+            
+            "January 14": "😩 So tiring huhuhu. Na-late ako ng sulat po, I love you! Thanks sa pagsama kahit puyat ka. I love you bebe koo. Mahal kita palagi! 💕",
+            
+            "January 15": "🥱 It's okay to sleep bebe while I'm doing my thing pooo. Thank you palagi sa lahat. Mahabang patience ang need q kase cute me. I'm so drained na rin pero kaya ko pa kase lagi naman kita kasama hihi. I love youuuuu! 💕",
+            
+            "January 16": "🤗 Ilang days na us magkasama po hehe, mas okay pag ganito di tayo away ng away noh? Pero bebe, wag pabayaan ang sarili! Pogii ka kayaaa pero hindi ka healthy! Gusto ko ayusin mo rin kung inaayos ko na sarili ko haaa. I love youuuuu! 🥰",
+            
+            "January 17": "😔 I'm sorry baby ko. Diko gusto actions ko pag naiinsecure ako. Sorry. I love youuuuu. Sorry if nahihirapan ka manuyo sakin and thank you palagiii. Mahal koo! 🥺💕",
+            
+            "January 18": "🥺 Ang bilis ng araw, mag-isa na naman me matutulog. I miss youuuu pati yung tiyan mo hihi. Gusto ko sya dyan pero need mo magbawal sa sarili mo mahal, hindi healthy yung mga pagkain mo. I love youuuuu! 💕",
+            
+            "January 19": "🧐 I can't remember kung anong nangyari today, siguro natulog lang ako maghapon nito. I love youuuuu. Gusto ko malaman mo I cared too much to the point I'm always angry and blaming you. Sorry. 💔",
+            
+            "January 20": "😞 Bebi, it's draining huhhh. I wish you could've hugged me. It's okayyy. But still, thank youuuu. I love youuuuu. Ayaw mo ng drama so nagsusuppress ako ng feelings rn. Ingat palagiii! 💕",
+            
+            "January 21": "😭 Bebi, I've been crying since I woke up. I don't know, we're changing. It's not the same anymore. I missed you. 😞 Being with you today is the only therapy I wanted. Being hugged by you. 🥺 I love you so muchhh! 💕",
+            
+            "January 22": "😌 Focc, I wrote this so delay but I'm happy we're not getting on a fight this past few days. I love you so much baby ko! 💕",
+            
+            "January 23": "😆 I'm sorry for getting mad at you kahit walang reason. Sumunod ka nalang ha para madali buhay mo! HAHAHA! I love youuuuu! 💖",
+            
+            "January 24": "💰 Thank you baby ko sa paghatid at sa pagsama kahit na malayo at walang money. Mahal kita superrr! I love you so muchhhh! 💕",
+            
+            "January 25": "🤗 Mahal koooo, you're so pogi palagiii. Pero mahal, think of yourself din! Help yourself, I got u naman. I love youuuuu! 💕",
+            
+            "January 26": "💭 Just a normal day again without seeing youuuu. I wanna have something that I can call my own muna before we have our life together. I love youuuuu! 💕",
+            
+            "January 27": "😅 Mahal, I think we need more discipline lalo na sa pag-gastos at tulog mo. I wanna feel secure sayo, protektahan mo me palagi ha? I love youuuuu! 💕",
+            
+            "January 28": "😤 The hardest time of our lives is yung magkasama tayo tapos tulog ka while gising ako! Tapos once na gisingin na kita, galit na ako! Hihi! Pero I love youuuuu! 💕",
+            
+            "January 29": "⏳ Mahal kooo, ang bilis ng araw lalo na pag tulog ka and nandito me sa bahay, so frustrating! I miss youuuu! 💕",
+                        
+            "January 30": "🎮 Yeyy naglaro us ng LoL kaninaaa, thank you bebee! Ginawa ko best ko para hindi magalit haaa, sana lang iwasan na natin yung away huhu. 💖 I love youuuuu, thanks sa pagsama kahit antok ka na. 😘 I love youuuuu, miss kita uwu. Mag-iingat palagiii! ✨",
+            "January 31": "💕 Hi my lovesss, I love you so mucchhh! Thank you sa pagsundo sakin palagiii kahit antok ka. 🥰 I love youuuuu! And sa mga pagsama sakin sa ukayan, alam q naiinis ka na sakin kase palagi me nag-uukay, wala kang magagawa kase mahal moko. 😆 I love you bebeee! 💖",
+            "February 1": "🎉 Yeyy February naaa! Malapit na birthday natin HHAHAHA! Anong regalo mooo? 🤭 Joke lang bebe, I love youuuuu! Kahit ano namang ibigay mo sakin, I appreciate youuuu. 💕 Gusto ko maging mas understanding lalo na sa situation mo, sorry kung di kita naalagaan minsan. I'll be better! 😘 I love youuuuu! 💖",
+            "February 2": "🤕 We don't have much interaction today, but I hope you're feeling well, mahal! Since sumasakit ngipin mo nowww, ingatan ang sarilii. 🥺 I love youuuuu! Can't wait makita ka tomorrow hihii. 💕",
+            "February 3": "🥺 Bebiii, I'm still nagtatampo sayo kase di mo cinoconsider decision ko pagdating sa games. 😭 Pero okay naman na meee. I love youuuuu, thank you sa pagsama sakin at sa paghatid sundo. 💖",
+            "February 4": "🚗 Mahal kooo, masaya todayy kahit masakit balakang ko at puson huhu. 🥹 I love youuuuu, thank youuuu poooo! Nagawa natin mga need natin gawin today kahit may kailangan ka pang gawin. 😘 Sleep ka na dyan, mahal kita palagiii! 💖",
+            "February 5": "😍 Mahal ang pogi mooo! Nakakainis lang ugali mo minsan, ang sungit mo tapos naninigaw ka! 😂 Pero mahal kita. 💕 Thank you for today mahal, I love youuuuu! 😘",
+            "February 6": "💖 I love you babyy! Happy monthsary! 🥰 Walang ganap pero okay langgg, mahal kita palagi! Mag-iingat ka, sana dika mambabae sa work huhu. 🤨",
+            "February 7": "🍽️ Yeyyy, I love you! Thank you sa libre mahal kooo! 😘 I love you mwaaa! Thank you sa hatid mo! 💖",
+            "February 8": "😢 This day ang moody ko kase hindi moko sinasabihan. 😔 I knew it naman na ako lang may gusto magkasama tayo. Siguro nauumay ka naaaa. I love youuuuu! 💖 Sana next time I can control myself na na hindi tayo magkitaa. Sorryyy! 🥺",
+            "February 9": "💭 Mahal, okay na sana today, kaso wala lang. 😢 Okay naman na tayo bebe q, I will take everything na sinabi mo sakin and that's okayyy. 😌 I love youuuuu parinnn! Kalimutan na natin yunn. Sorryyy, mag-aadjust meee. 💖",
+            "February 10": "⏳ 11:11 I love youuuuu! Thank you sa paghihintay mo sakin! 🥹 Sorry sa mga sinabi koooo, mahal na mahal kita. Thank you sa lahattt at sa mahabang pasensya mooo. 😘 I love youuuuu pooo! 💖",
+            "February 11": "💤 Mahal kooo, I know your night was tiring. 😞 Sorry sa mga pamimilit ko at sorry kung nagagalit ako pag late ka HAHHA! 😂 I love you so muchhhh! Thank you sa lahattt! 💖",
+            "February 12": "🛵 Bebee, ilang days na tayong magkasama! 🥰 I love you mahal kooo! Thank you palagiii po sa hatid sundo. 💖 Mag-iingat ka palagi, mahal na mahal kitaaaa! 😘",
+            "February 13": "😊 I'm happy todayy, di ako nagalit sayo (konti lang hehe). 😆 I love youuuu! Thank you parinnn! Sorryyy inuubos natin pera mo huhu. 🥺 Gusto ko na rin mag work tuloy huhuu. I love youuuuu and thank you mahal kooo! 💖",
+            "February 14": "💘 Happy Valentine's Dayyy! 🥹 Medyo inggit ako sa iba pero I think deserving naman ako this time kahit kasamaan ko ng ugali. 😂 I understand uuuu. I love youuuuu parinnn! 💖",
+            "February 15": "🌹 Mahal koo, I'm so happy tonighttt! 🥰 Thank you sa pagsama palagi kahit pagod ka na. 😭 I love you so mucchhhh! Thank you sa rose pooo! 🥹 Umiiyak me kahapon kase wala me flowers eh, pero late lang pala hihi. I love youuuuu! 💖",
+            "February 16": "📖 Super plain ng araw natin pero super saya! 😆 Mahal, I love youuu! Ginawa ko ng diary toh, I want you to know how my mind works in every situation. 🥰 Love na love ko yung smile moo! 😘 I love youuuuu! 💖",
+            "February 17": "🚗 Mahal ko, thank you sa paghatid sakin for the last time. 🥹 Mamimiss ko yung paghatid mo sakin gabi-gabi, huhuu. I love youuuuu! 💖 Thank you sa lahat baby kooo! 😭 I feel so secure and lucky mahalll. 💕",
+            "February 18": "💸 Mahal kooo, thank you palagiii sa mga libre mo hihii! 😘 I love youuuuu! Mag-iingat ka palagi, baby koooo! 🥰 Sorry sa pagiging sakit ko sa ulo, mahall. 💖",
+            "February 19": "🕰️ Mahal, thank you sa mahabang pasensyaaa! 😭 Thank you sa pag-try mo sa best mo. I will try my best din para hindi magalit sayo tuwing late ka hehe. 😆 Sorryyy, I love youuuuu! 💖",
+            "February 20": "😴 Mahal koo, rest ka langg, you need it hihi! 😘 Mahal kita alwaysss. I love youuuuu and I miss you baby kooo! 💖",
+            "February 21": "⏳ Mahal koo, time flies so fast pero ang tagal ng oras pag di tayo magkasama huhuu. 😢 I love youuuuu! Sorry po sa lahat ng pangungupal ko, I miss you so muchhhh! 💖",
+            "February 22": "🥰 Mahallll, can't wait makasama ka ulit hihii! 😘 I love youu! Thank you sa lahat ng ginagawa mo para satin. 💖 Sorry po minsan inaaway kita kase pinag-mamadali kita bleh. 😆",
+            "February 23": "💖 Baby koo, ang bilis ng araw noh kainis. 🥹 I'm so happy todayy kase kasama kita kahit mainisin ka ng konti 🤨. I love youuuuu babyyyyy! 😘",
+            "February 24": "🤗 Yey mahal, na-extend tayo ng ilang oras na magkasama! 🥰 I love you so muchhhh! Gusto q ng hug mo palagiii! 😘",
+            "February 25": "💰 Baby kooo, I love youuuu! I’m so excited makakuha ng allowance hihii! 😂 Mahal kita palagiii! I miss you baby kooo! 💖",
+            "February 26": "🥺 Thank you so much mahal koo! I appreciate you pooo! Maraming salamat mahal ko sa lahat! 😘 Mahal kita palagiii sobra! 💖",
+            "February 27": "🤒 Kawawa naman ang baby kooo may sakit. 🥺 Sorry po hindi kita maalagaan huhu. 😭 I love youuuu! Mag-iingat palagiiii sa workkk! 💖",
+            "February 28": "😆 Mahaalll, I miss you todayyy! Kakakita lang natin pero miss uuuu! I love youuuu! 😘 Rest well baby koooo! 💖",
+            
+                    
+            "March 1": "💻 Super busy todayy hihi, nag-aayos mw ng cp bebe! Di ko na napansin yung oras at araw pero umalis mw agad sa bahay kase wala langgg. Di kita pinuntahan kase ayaw kita maistorbo sa pag sleep, need mo ng rest. 💤 Happy ako todayy kase kasama kita ulit baby kooo! 💖",
+            
+            "March 2": "🤒 Kawawa naman ang baby ko, nag-uubo paaa. Ganyan talaga pag pasaway dsurv HAHHAHA. I love youuu! Sana makinig ka saken minsan or kahit wag na, may nag-guguide naman sayo at satin. 😘 Mwaps, I love youuuu! 💕",
+            
+            "March 3": "📅 Pinaka-hate ko na araw huhuu pero thankful na nandyan ka palagi. Nawawala kaba ko mahall. Salamat sa paghatid, nalelessen yung stress ko pag papasok akooo kasama kita ehhh huhu. 🚗 I love youuuu! Sana matapos na tong back sub ko. Thank you sa lahat babyyyy! 💞",
+            
+            "March 4": "🎮 I'm here lang po, nagbebehave habang nagrerest kaaa. Playing Pokémon bebeko! 💖 I love youuu, pagaling mahal kooo, and I miss youuuu! 🥺",
+            
+            "March 5": "😢 Nagising me, parang may kulang! Miss youu! Parang need kita awayin bebe pero parang hindi HAHAHAH. Rest ka lang dyan mahal kooo, sana gumaling ka na! Kupal ka kase. 😂 I love youuuu! 💕",
+            
+            "March 6": "💘 Yey! Monthsary natin!!! 🥰 Palagi kitang gustong makita mahal kooo. I love youuu, happy monthsaryyy! 🎉 I understand na busy ka po mahal kooo. Mahal na mahal kitaaaa! 💖",
+            
+            "March 7": "🌙 I'm playing mahal kooo, I know tulog ka. 😴 Rest ka lang dyannn, mag-sleep ng mahaba habang may time pooo. I'm trying to be understanding po mahal ko, kase pagod ka na kaya nag-spend ako ng time sa pag-play koo. 🎮 Mag-iingat ka dyan palagii. Sana dika nambababae huhu, sapakin kita bleh. 🥺😂 I love youuu! 💖",
+            
+            "March 8": "🎮 I spent my day playing habang natutulog ka mahal kooo. 💤 I love you and I miss you bebiii! 😘 Sorry kung nauuna-una ako sa pagpunta ko kase miss na kita ih tapos wala me magawa hehehe. I love youuuu! 💞 Thankful ako understanding tayo parehas sa isa't isa. No more away na po mahal, istg mabait meee! 😇",
+            
+            "March 9": "🐱 Baby kooo, thank you! Sinasamahan moko sa charity work kooo. Sorry sa pag-abala sayo! Mahal kooo, sana makatulong tayo sa mga kuting nohh, I really want to do thatt. 🥰 Sorry pera mo gamot natin hihi! 😂 I love you so muchhh, ang pogi mo palagiii! 😍 Mahal na mahal kita bebe kooo! 💕 I really love asking you questions. Feel ko pwede q itanong sau lahat eh HAHHAHAH! 🤣",
+            
+            "March 10": "😢 Worst day yet the happiest dahil hinatid mo ako sa school! 🎒 Ang sarap sa feeling bebeee! 🥺 I really appreciate you pooo sa paghatid mo sakin! Ang pogi pogi mooo and ang bango palagi khit inaasar kita HAHAHAH! 🤭 I love youuu! 💖 Ingat sa pagpasokk! 🚗",
+            
+            "March 11": "⏳ Babyyy, ang bilis ng araw! :< Balik ulit sa dati, papasok ka then sleep huhu. 😭 I miss you bebi kooooo! I hope okay ka lang and nakaka-sleep ka ng maayos mwaaaa! 💕",
+            
+            "March 12": "💌 My lovesss, I'm thinking paano ko ibibigay sayo tong letters if super dami HHAHAHA! 🤣 I love you poooo! 💖 I'm still thinking po since tulog ka naman palagiii. 😴 I love youuuuu! Miss youuuu! 😘",
+            
+            "March 13": "💖 Mahal kooo, I'm so thankful! Thank you sa paghatid mo kahit pagod ka pa sa workk! 🥺 I love youuuuu! Miss na kita hugggg! 🤗 Me kaya miss mo rin? Bleh, edi wag. 😂 Sorry po nabasa yung papers mo huhu. 😭 Thank youuu, I appreciate you poooo! Ingat sa workk! 💕",
+                   
+            "March 14": "mahal ko i’m sorry triggered na naman retroactive jealousy ko huhuuu. I really want you for me only po kaya triggered agad ako 🥹 kainissss. Its really my mood mahal pag miss kita then nakakakita me ng ganon. I’m sorryyy sana maalis na sila huhu. I love youuuu sorry babyyyy. I love you so muchhhh.",
+           
+            "March 15": "I’m so excited makita ang baby koooo. Birthday boy yan ih hihi bebee i love youuuu malapit na birthday natinnnn. I wish you all the best po and i will support you with bashing syempre. Mahal na mahal kitaaa. Every night na magkasama tayo palagi kong winiwish na sana magkasama na talaga us kaso hindi pa pwede. Takas lang munaaaa AHHAH. I love youuuu. Thank you for everything mahal koooo. ",
+                
+            "March 16": "Happy birthday mahaallll!! Mahal na mahal kitaaaa! Kung pwede lang tumira sa brief mo ginawa ko na hehehe. I love youuuu mahal kita alwaysss. Nandito lang ako palagi for youuu. And this is the 74th day hihiii. Do you think i will continue writing? If yes sabihin mo plss. Alam mo super helpful nito lalo na pag magka away us, less hassle for you kase nagsusulat me. I love you babyyy. Happy birthday poooo. You own this day unli ano ka sakin hihi. Mwaaa "
+            };
+        
+                
+
+            const key = `${month} ${day}`;
+            const content = dateContents[key] || "( ｡>﹏<)  ﹒ 📅﹕ ✼ ﹒ No message for this day ! ";
+
+            document.getElementById("date-title").textContent = `${month} ${day}, 2025`;
+            contentDiv.innerHTML = content;
+        }
+
+        window.onload = displayDayContent;
+    </script>
+</head>
+<body>
+    <h1>꒰ ˚⊹Day Details ʚ(｡˃ ᵕ ˂ )ɞ</h1>
+    <div class="container">
+        <h2 id="date-title">Loading...</h2>
+        <p id="day-content" class="content"></p>
+        <button class="back-btn" onclick="window.history.back()">⬅ Back to Calendar</button>
+    </div>
+</body>
+</html>
